@@ -4,7 +4,19 @@ PagSeguro Java Backend
 WebService em Java pra fornecer algumas funcoes basicas  
 de integracao com o PagSeguro.
 
-Recomendado usar com o [AIO Bequiend](https://github.com/venosyd/aio_bequiend_generic)
+Recomendado usar com o [AIO Bequiend](https://github.com/venosyd/aio_bequiend_generic)  
+
+De início use:
+
+```
+./install-dependencies && ./build
+```
+
+e em outras compilações apenas:
+
+```
+./build
+```
 
 - **GET)** /token
     - Retorna seu token de usuario pagseguro configurado no assets/config.yaml
@@ -14,6 +26,9 @@ Recomendado usar com o [AIO Bequiend](https://github.com/venosyd/aio_bequiend_ge
 
 - **GET)** /session
     - Retorna uma sesssionID
+
+- **POST)** /create-plan
+    - Cria um plano, para pagamento recorrente
 
 - **POST)** /ccbrand
     - Retorna a bandeira do cartao de credito passado como numero nos parametros
@@ -35,6 +50,9 @@ Recomendado usar com o [AIO Bequiend](https://github.com/venosyd/aio_bequiend_ge
 
 - **POST)** /see-subscription
     - Retorna os dados de uma inscricao
+
+- **POST)** /cancel-subscription
+    - Cancela a inscricao de um aderente
 
 ## OBSERVACAO
 

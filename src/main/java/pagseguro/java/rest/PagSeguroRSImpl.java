@@ -10,10 +10,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
-import bequiend.commons.util.Config;
 import bequiend.commons.util.JSONUtil;
 import bequiend.commons.util.RESTService;
+import pagseguro.java.lib.PagSeguroConfig;
+import pagseguro.java.logic.CheckoutBS;
+import pagseguro.java.logic.CreditCardBS;
 import pagseguro.java.logic.PagSeguroBS;
+import pagseguro.java.logic.SubscriptionBS;
 
 /**
  * @author sergio lisan <sels@venosyd.com>
@@ -70,6 +73,32 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
     }
 
     @Override
+    public Response createPlan(String body) {
+        List<String> arguments = Arrays.asList("planoNome", "planoSigla", "planoURLCancelamento", "planoPreco");
+
+        return process(_unwrap(body), getauthcode(headers), arguments, (request) -> {
+            var response = new HashMap<String, String>();
+
+            var planoNome = request.get("planoNome");
+            var planoSigla = request.get("planoSigla");
+            var planoURLCancelamento = request.get("planoURLCancelamento");
+            var planoPreco = request.get("planoPreco");
+
+            var result = PagSeguroBS.INSTANCE.createPlan(planoNome, planoSigla, planoURLCancelamento, planoPreco);
+
+            if (result != null && !result.containsKey("error")) {
+                response.put("status", "ok");
+                response.put("payload", JSONUtil.toJSON(result));
+            } else {
+                response.put("status", "error");
+                response.put("message", JSONUtil.toJSON(result));
+            }
+
+            return makeResponse(response);
+        });
+    }
+
+    @Override
     public Response ccBrand(String body) {
         return process(_unwrap(body), getauthcode(headers), Arrays.asList("sessionID", "ccBin"), (request) -> {
             var response = new HashMap<String, String>();
@@ -77,7 +106,7 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
             var sessionID = request.get("sessionID");
             var ccBin = request.get("ccBin");
 
-            var result = PagSeguroBS.INSTANCE.getCCBrand(sessionID, ccBin);
+            var result = CreditCardBS.INSTANCE.getCCBrand(sessionID, ccBin);
 
             if (!result.equals("INVALID_CARD_BRAND")) {
                 response.put("status", "ok");
@@ -106,7 +135,7 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
             var ccMesExpiracao = request.get("ccMesExpiracao");
             var ccAnoExpiracao = request.get("ccAnoExpiracao");
 
-            var result = PagSeguroBS.INSTANCE.getCCToken(sessionID, amount, ccNumero, ccCVV, ccMesExpiracao,
+            var result = CreditCardBS.INSTANCE.getCCToken(sessionID, amount, ccNumero, ccCVV, ccMesExpiracao,
                     ccAnoExpiracao);
 
             if (!result.equals("INVALID_CARD_TOKEN")) {
@@ -132,7 +161,7 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
             var amount = String.format("%.2f", Double.parseDouble(request.get("amount")));
             var ccBrand = request.get("ccBrand");
 
-            var result = PagSeguroBS.INSTANCE.getParcelas(sessionID, amount, ccBrand);
+            var result = CreditCardBS.INSTANCE.getParcelas(sessionID, amount, ccBrand);
 
             if (result != null && result.get("error").equals("false")) {
                 response.put("status", "ok");
@@ -147,16 +176,17 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public Response doCheckout(String body) {
-        List<String> arguments = Arrays.asList("sessionID", "clienteNome", "clienteCPF", "clienteDDD", "clientePhone",
-                "clienteEmail", "clienteHash", "amount", "parcelas", "ccNumero", "ccCVV", "ccMesExpiracao",
-                "ccAnoExpiracao", "ccDiaNascimento");
+        List<String> arguments = Arrays.asList("sessionID", "itemDescricao", "itemSigla", "clienteNome", "clienteCPF",
+                "clienteDDD", "clientePhone", "clienteEmail", "clienteHash", "amount", "parcelas", "ccNumero", "ccCVV",
+                "ccMesExpiracao", "ccAnoExpiracao", "ccDiaNascimento");
 
         return process(_unwrap(body), getauthcode(headers), arguments, (request) -> {
             var response = new HashMap<String, String>();
 
             var sessionID = request.get("sessionID");
+            var itemDescricao = request.get("itemDescricao");
+            var itemSigla = request.get("itemSigla");
             var clienteNome = request.get("clienteNome");
             var clienteCPF = request.get("clienteCPF");
             var clienteDDD = request.get("clienteDDD");
@@ -171,11 +201,11 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
             var ccAnoExpiracao = request.get("ccAnoExpiracao");
             var ccDiaNascimento = request.get("ccDiaNascimento");
 
-            String database = (String) ((Map) Config.INSTANCE.get("pagseguro")).get("bancodedados");
+            String database = (String) PagSeguroConfig.INSTANCE.get("bancodedados");
 
-            var result = PagSeguroBS.INSTANCE.doCheckout(sessionID, clienteNome, clienteCPF, clienteDDD, clientePhone,
-                    clienteEmail, clienteHash, amount, ccNumero, ccCVV, ccMesExpiracao, ccAnoExpiracao, ccDiaNascimento,
-                    parcelas, database);
+            var result = CheckoutBS.INSTANCE.doCheckout(sessionID, itemDescricao, itemSigla, clienteNome, clienteCPF,
+                    clienteDDD, clientePhone, clienteEmail, clienteHash, amount, ccNumero, ccCVV, ccMesExpiracao,
+                    ccAnoExpiracao, ccDiaNascimento, parcelas, database);
 
             if (result != null && !result.containsKey("error")) {
                 response.put("status", "ok");
@@ -193,7 +223,7 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
     public Response seeCheckout(String body) {
         return process(_unwrap(body), getauthcode(headers), Arrays.asList("transactionID"), (request) -> {
             var response = new HashMap<String, String>();
-            var result = PagSeguroBS.INSTANCE.seeCheckout(request.get("transactionID"));
+            var result = CheckoutBS.INSTANCE.seeCheckout(request.get("transactionID"));
 
             if (result != null && !result.containsKey("error")) {
                 response.put("status", "ok");
@@ -208,11 +238,11 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
     }
 
     @Override
-    @SuppressWarnings("rawtypes")
     public Response doSubscription(String body) {
-        var arguments = Arrays.asList("sessionID", "clienteNome", "clienteCPF", "clienteDDD", "clientePhone",
-                "clienteEmail", "clienteHash", "enderecoRua", "enderecoDistrito", "enderecoCidade", "enderecoEstado",
-                "enderecoCEP", "ccNumero", "ccCVV", "ccMesExpiracao", "ccAnoExpiracao", "ccDiaNascimento");
+        var arguments = Arrays.asList("sessionID", "planoID", "planoSigla", "planoPreco", "clienteNome", "clienteCPF",
+                "clienteDDD", "clientePhone", "clienteEmail", "clienteHash", "enderecoRua", "enderecoDistrito",
+                "enderecoCidade", "enderecoEstado", "enderecoCEP", "ccNumero", "ccCVV", "ccMesExpiracao",
+                "ccAnoExpiracao", "ccDiaNascimento");
 
         return process(_unwrap(body), getauthcode(headers), arguments, (request) -> {
             var response = new HashMap<String, String>();
@@ -224,6 +254,9 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
             var clientePhone = request.get("clientePhone");
             var clienteEmail = request.get("clienteEmail");
             var clienteHash = request.get("clienteHash");
+            var planoID = request.get("planoID");
+            var planoPreco = request.get("planoPreco");
+            var planoSigla = request.get("planoSigla");
             var enderecoRua = request.get("enderecoRua");
             var enderecoNumero = request.get("enderecoNumero");
             var enderecoDistrito = request.get("enderecoDistrito");
@@ -236,12 +269,12 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
             var ccAnoExpiracao = request.get("ccAnoExpiracao");
             var ccDiaNascimento = request.get("ccDiaNascimento");
 
-            String database = (String) ((Map) Config.INSTANCE.get("pagseguro")).get("bancodedados");
+            String database = (String) PagSeguroConfig.INSTANCE.get("bancodedados");
 
-            var result = PagSeguroBS.INSTANCE.doSubcription(sessionID, clienteNome, clienteCPF, clienteDDD,
-                    clientePhone, clienteEmail, clienteHash, enderecoRua, enderecoNumero, enderecoDistrito,
-                    enderecoCidade, enderecoEstado, enderecoCEP, ccNumero, ccCVV, ccMesExpiracao, ccAnoExpiracao,
-                    ccDiaNascimento, database);
+            var result = SubscriptionBS.INSTANCE.doSubcription(sessionID, planoID, planoSigla, planoPreco, clienteNome,
+                    clienteCPF, clienteDDD, clientePhone, clienteEmail, clienteHash, enderecoRua, enderecoNumero,
+                    enderecoDistrito, enderecoCidade, enderecoEstado, enderecoCEP, ccNumero, ccCVV, ccMesExpiracao,
+                    ccAnoExpiracao, ccDiaNascimento, database);
 
             if (result != null && !result.containsKey("error")) {
                 response.put("status", "ok");
@@ -259,7 +292,25 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
     public Response seeSubscription(String body) {
         return process(_unwrap(body), getauthcode(headers), Arrays.asList("subscriptionID"), (request) -> {
             var response = new HashMap<String, String>();
-            var result = PagSeguroBS.INSTANCE.seeSubscription(request.get("subscriptionID"));
+            var result = SubscriptionBS.INSTANCE.seeSubscription(request.get("subscriptionID"));
+
+            if (result != null && !result.containsKey("error")) {
+                response.put("status", "ok");
+                response.put("payload", JSONUtil.toJSON(result));
+            } else {
+                response.put("status", "error");
+                response.put("message", JSONUtil.toJSON(result));
+            }
+
+            return makeResponse(response);
+        });
+    }
+
+    @Override
+    public Response cancelSubscription(String body) {
+        return process(_unwrap(body), getauthcode(headers), Arrays.asList("subscriptionID"), (request) -> {
+            var response = new HashMap<String, String>();
+            var result = SubscriptionBS.INSTANCE.cancelSubscription(request.get("subscriptionID"));
 
             if (result != null && !result.containsKey("error")) {
                 response.put("status", "ok");
@@ -278,11 +329,10 @@ public class PagSeguroRSImpl implements PagSeguroRS, RESTService {
      * para o servidor saber direcionar o fluxo de persistencia e consulta
      * corretamente
      */
-    @SuppressWarnings("rawtypes")
     private Map<String, String> _unwrap(String body) {
         var request = JSONUtil.<String, String>fromJSONToMap(body);
 
-        String database = (String) ((Map) Config.INSTANCE.get("pagseguro")).get("bancodedados");
+        String database = (String) PagSeguroConfig.INSTANCE.get("bancodedados");
         request.put("database", database);
 
         return request;

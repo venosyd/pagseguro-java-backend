@@ -12,38 +12,19 @@ import javax.ws.rs.core.Response;
  */
 public interface PagSeguroRS {
 
-    /**  */
     String PAGSEGURO_BASE_URL = "/pagseguro";
-
-    /**  */
     String PAGSEGURO_TOKEN = "/token";
-
-    /**  */
     String PAGSEGURO_CREDENTIAL = "/credential";
-
-    /**  */
     String PAGSEGURO_SESSION = "/session";
-
-    /**  */
     String PAGSEGURO_CC_BRAND = "/ccbrand";
-
-    /**  */
     String PAGSEGURO_CC_TOKEN = "/cctoken";
-
-    /**  */
-    String PAGSEGURO_GET_PARCELAS = "/get-parcelas";
-
-    /**  */
-    String PAGSEGURO_DO_CHECKOUT = "/do-checkout";
-
-    /**  */
-    String PAGSEGURO_SEE_CHECKOUT = "/see-checkout";
-
-    /**  */
-    String PAGSEGURO_DO_SUBSCRIPTION = "/do-subscription";
-
-    /**  */
-    String PAGSEGURO_SEE_SUBSCRIPTION = "/see-subscription";
+    String PAGSEGURO_CC_PARCELAS = "/get-parcelas";
+    String PAGSEGURO_CHECKOUT_DO = "/do-checkout";
+    String PAGSEGURO_CHECKOUT_SEE = "/see-checkout";
+    String PAGSEGURO_PLAN_CREATE = "/create-plan";
+    String PAGSEGURO_SUBSCRIPTION_DO = "/do-subscription";
+    String PAGSEGURO_SUBSCRIPTION_SEE = "/see-subscription";
+    String PAGSEGURO_SUBSCRIPTION_CANCEL = "/cancel-subscription";
 
     @GET
     @Path(PAGSEGURO_TOKEN)
@@ -61,6 +42,11 @@ public interface PagSeguroRS {
     Response createSession();
 
     @POST
+    @Path(PAGSEGURO_PLAN_CREATE)
+    @Produces({ MediaType.APPLICATION_JSON })
+    Response createPlan(String body);
+
+    @POST
     @Path(PAGSEGURO_CC_BRAND)
     @Produces({ MediaType.APPLICATION_JSON })
     Response ccBrand(String body);
@@ -71,27 +57,32 @@ public interface PagSeguroRS {
     Response ccToken(String body);
 
     @POST
-    @Path(PAGSEGURO_GET_PARCELAS)
+    @Path(PAGSEGURO_CC_PARCELAS)
     @Produces({ MediaType.APPLICATION_JSON })
     Response getParcelas(String body);
 
     @POST
-    @Path(PAGSEGURO_DO_CHECKOUT)
+    @Path(PAGSEGURO_CHECKOUT_DO)
     @Produces({ MediaType.APPLICATION_JSON })
     Response doCheckout(String body);
 
     @POST
-    @Path(PAGSEGURO_SEE_CHECKOUT)
+    @Path(PAGSEGURO_CHECKOUT_SEE)
     @Produces({ MediaType.APPLICATION_JSON })
     Response seeCheckout(String body);
 
     @POST
-    @Path(PAGSEGURO_DO_SUBSCRIPTION)
+    @Path(PAGSEGURO_SUBSCRIPTION_DO)
     @Produces({ MediaType.APPLICATION_JSON })
     Response doSubscription(String body);
 
     @POST
-    @Path(PAGSEGURO_SEE_SUBSCRIPTION)
+    @Path(PAGSEGURO_SUBSCRIPTION_SEE)
     @Produces({ MediaType.APPLICATION_JSON })
     Response seeSubscription(String body);
+
+    @POST
+    @Path(PAGSEGURO_SUBSCRIPTION_CANCEL)
+    @Produces({ MediaType.APPLICATION_JSON })
+    Response cancelSubscription(String body);
 }
