@@ -1,4 +1,4 @@
-package pagseguro.java.logic;
+package bequiend.pagseguro.logic;
 
 import java.util.Map;
 

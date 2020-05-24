@@ -1,4 +1,4 @@
-package pagseguro.java.rest;
+package bequiend.pagseguro.rest;
 
 import java.util.HashSet;
 import java.util.Set;

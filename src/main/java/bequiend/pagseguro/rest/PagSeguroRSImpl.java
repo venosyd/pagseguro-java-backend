@@ -1,4 +1,4 @@
-package pagseguro.java.rest;
+package bequiend.pagseguro.rest;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,11 +12,11 @@ import javax.ws.rs.core.Response;
 
 import bequiend.commons.util.JSONUtil;
 import bequiend.commons.util.RESTService;
-import pagseguro.java.lib.PagSeguroConfig;
-import pagseguro.java.logic.CheckoutBS;
-import pagseguro.java.logic.CreditCardBS;
-import pagseguro.java.logic.PagSeguroBS;
-import pagseguro.java.logic.SubscriptionBS;
+import bequiend.pagseguro.lib.PagSeguroConfig;
+import bequiend.pagseguro.logic.CheckoutBS;
+import bequiend.pagseguro.logic.CreditCardBS;
+import bequiend.pagseguro.logic.PagSeguroBS;
+import bequiend.pagseguro.logic.SubscriptionBS;
 
 /**
  * @author sergio lisan <sels@venosyd.com>

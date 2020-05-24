@@ -1,4 +1,4 @@
-package pagseguro.java.rest;
+package bequiend.pagseguro.rest;
 
 import javax.ws.rs.ApplicationPath;
 

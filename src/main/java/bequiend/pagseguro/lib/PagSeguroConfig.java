@@ -1,4 +1,4 @@
-package pagseguro.java.lib;
+package bequiend.pagseguro.lib;
 
 import bequiend.commons.util.ConfigReader;
 

@@ -1,4 +1,4 @@
-package pagseguro.java.logic;
+package bequiend.pagseguro.logic;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import bequiend.commons.http.Http;
 import bequiend.commons.log.Debuggable;
 import bequiend.commons.util.JSONUtil;
 import bequiend.repository.Repository;
-import pagseguro.java.lib.PagSeguroUtil;
+import bequiend.pagseguro.lib.PagSeguroUtil;
 
 /**
  * @author sergio lisan <sels@venosyd.com>

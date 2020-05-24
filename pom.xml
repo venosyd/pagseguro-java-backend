@@ -1,12 +1,12 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- project data -->
-    <groupId>com.venosyd</groupId>
-    <artifactId>pagseguro-java-backend</artifactId>
+    <groupId>bequiend</groupId>
+    <artifactId>aio-pagseguro</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>pagseguro-java-backend</name>
+    <name>aio-pagseguro</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
