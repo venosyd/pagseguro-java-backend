@@ -1,4 +1,4 @@
-package bequiend.pagseguro.lib;
+package com.venosyd.opensource.aio.pagseguro.lib;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import bequiend.pagseguro.logic.CreditCardBS;
+import com.venosyd.opensource.aio.pagseguro.logic.CreditCardBS;
 
 /**
  * @author sergio lisan <sels@venosyd.com>

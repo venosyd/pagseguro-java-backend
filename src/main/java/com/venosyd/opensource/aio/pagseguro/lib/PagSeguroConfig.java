@@ -1,6 +1,6 @@
-package bequiend.pagseguro.lib;
+package com.venosyd.opensource.aio.pagseguro.lib;
 
-import bequiend.commons.util.ConfigReader;
+import com.venosyd.opensource.aio.commons.util.ConfigReader;
 
 /**
  * @author sergio lisan <sels@venosyd.com>

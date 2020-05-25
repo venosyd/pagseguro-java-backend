@@ -1,4 +1,4 @@
-package bequiend.pagseguro.logic;
+package com.venosyd.opensource.aio.pagseguro.logic;
 
 import java.util.Map;
 

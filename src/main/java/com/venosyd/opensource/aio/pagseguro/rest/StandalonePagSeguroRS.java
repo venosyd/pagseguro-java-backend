@@ -1,4 +1,4 @@
-package bequiend.pagseguro.rest;
+package com.venosyd.opensource.aio.pagseguro.rest;
 
 import javax.ws.rs.ApplicationPath;
 

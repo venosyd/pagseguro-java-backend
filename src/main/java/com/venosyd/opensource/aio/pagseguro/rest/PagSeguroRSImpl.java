@@ -1,4 +1,4 @@
-package bequiend.pagseguro.rest;
+package com.venosyd.opensource.aio.pagseguro.rest;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,13 +10,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
-import bequiend.commons.util.JSONUtil;
-import bequiend.commons.util.RESTService;
-import bequiend.pagseguro.lib.PagSeguroConfig;
-import bequiend.pagseguro.logic.CheckoutBS;
-import bequiend.pagseguro.logic.CreditCardBS;
-import bequiend.pagseguro.logic.PagSeguroBS;
-import bequiend.pagseguro.logic.SubscriptionBS;
+import com.venosyd.opensource.aio.commons.util.JSONUtil;
+import com.venosyd.opensource.aio.commons.util.RESTService;
+import com.venosyd.opensource.aio.pagseguro.lib.PagSeguroConfig;
+import com.venosyd.opensource.aio.pagseguro.logic.CheckoutBS;
+import com.venosyd.opensource.aio.pagseguro.logic.CreditCardBS;
+import com.venosyd.opensource.aio.pagseguro.logic.PagSeguroBS;
+import com.venosyd.opensource.aio.pagseguro.logic.SubscriptionBS;
 
 /**
  * @author sergio lisan <sels@venosyd.com>

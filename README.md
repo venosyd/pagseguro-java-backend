@@ -4,7 +4,7 @@ PagSeguro Java Backend
 WebService em Java pra fornecer algumas funcoes basicas  
 de integracao com o PagSeguro.
 
-Recomendado usar com o [AIO Bequiend](https://github.com/venosyd/aio_bequiend_generic)  
+Recomendado usar com o [AIO Bequiend](https://github.com/venosyd/aio_bequiend)  
 
 De início use:
 

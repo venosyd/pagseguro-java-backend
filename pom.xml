@@ -1,7 +1,7 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- project data -->
-    <groupId>bequiend</groupId>
+    <groupId>com.venosyd.opensource</groupId>
     <artifactId>aio-pagseguro</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
@@ -53,8 +53,8 @@
             <version>2.11.0</version>
         </dependency>        
         <dependency>
-            <groupId>bequiend</groupId>
-            <artifactId>aio-bequiend</artifactId>
+            <groupId>com.venosyd.opensource</groupId>
+            <artifactId>aio-commons</artifactId>
             <version>1.7.5</version>
         </dependency>
     </dependencies>

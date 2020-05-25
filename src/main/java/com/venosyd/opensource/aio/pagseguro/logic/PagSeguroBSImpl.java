@@ -1,12 +1,12 @@
-package bequiend.pagseguro.logic;
+package com.venosyd.opensource.aio.pagseguro.logic;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import bequiend.commons.http.Http;
-import bequiend.commons.log.Debuggable;
-import bequiend.commons.util.JSONUtil;
-import bequiend.pagseguro.lib.PagSeguroUtil;
+import com.venosyd.opensource.aio.commons.http.Http;
+import com.venosyd.opensource.aio.commons.log.Debuggable;
+import com.venosyd.opensource.aio.commons.util.JSONUtil;
+import com.venosyd.opensource.aio.pagseguro.lib.PagSeguroUtil;
 
 /**
  * @author sergio lisan <sels@venosyd.com>
