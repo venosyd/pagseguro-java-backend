@@ -7,8 +7,8 @@ import java.util.Map;
 import com.venosyd.opensource.aio.commons.http.Http;
 import com.venosyd.opensource.aio.commons.log.Debuggable;
 import com.venosyd.opensource.aio.commons.util.JSONUtil;
-import com.venosyd.opensource.aio.repository.Repository;
 import com.venosyd.opensource.aio.pagseguro.lib.PagSeguroUtil;
+import com.venosyd.opensource.aio.repository.logic.RepositoryBS;
 
 /**
  * @author sergio lisan <sels@venosyd.com>
@@ -102,7 +102,7 @@ public class SubscriptionBSImpl implements SubscriptionBS, Debuggable {
                 result.put("type", "Subscription");
                 result.put("collection_key", "Transaction");
 
-                Repository.INSTANCE.save(database, JSONUtil.toJSON(result));
+                RepositoryBS.INSTANCE.save(database, JSONUtil.toJSON(result));
             }
 
             return result;
