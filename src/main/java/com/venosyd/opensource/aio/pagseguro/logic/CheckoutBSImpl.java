@@ -7,7 +7,7 @@ import com.venosyd.opensource.aio.commons.http.Http;
 import com.venosyd.opensource.aio.commons.log.Debuggable;
 import com.venosyd.opensource.aio.commons.util.JSONUtil;
 import com.venosyd.opensource.aio.pagseguro.lib.PagSeguroUtil;
-import com.venosyd.opensource.aio.repository.logic.RepositoryBS;
+import com.venosyd.opensource.aio.repository.Repository;
 
 /**
  * @author sergio lisan <sels@venosyd.com>
@@ -84,7 +84,7 @@ public class CheckoutBSImpl implements CheckoutBS, Debuggable {
                 result.put("type", "Checkout");
                 result.put("collection_key", "Transaction");
 
-                RepositoryBS.INSTANCE.save(database, JSONUtil.toJSON(result));
+                Repository.INSTANCE.save(database, JSONUtil.toJSON(result));
             }
 
             return result;
