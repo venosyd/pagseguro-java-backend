@@ -2,4 +2,4 @@
 
 mvn -T 8 clean install -Dmaven.test.skip=true
 cd target/
-mvn install:install-file -Dfile=aio-pagseguro-1.0.0.jar -DgroupId=com.venosyd.opensource -DartifactId=aio-pagseguro -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=aio-pagseguro-1.1.0.jar -DgroupId=com.venosyd.opensource -DartifactId=aio-pagseguro -Dversion=1.1.0 -Dpackaging=jar

@@ -3,7 +3,7 @@
     <!-- project data -->
     <groupId>com.venosyd.opensource</groupId>
     <artifactId>aio-pagseguro</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <name>aio-pagseguro</name>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>com.venosyd.opensource</groupId>
             <artifactId>aio-commons</artifactId>
-            <version>1.7.5</version>
+            <version>1.8.5</version>
         </dependency>
     </dependencies>
 </project>

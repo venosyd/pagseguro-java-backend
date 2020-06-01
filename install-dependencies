@@ -1,10 +1,10 @@
 #!/bin/bash
 
 ## download
-curl -LJO https://github.com/venosyd/aio_commons/releases/download/1.7.5/aio-commons-1.7.5.jar --silent
+curl -LJO https://github.com/venosyd/aio_commons/releases/download/1.8.5/aio-commons-1.8.5.jar --silent
 
 ## instalacao e build
-mvn install:install-file -Dfile=aio-commons-1.7.5.jar -DgroupId=com.venosyd.opensource -DartifactId=aio-commons -Dversion=1.7.5 -Dpackaging=jar
+mvn install:install-file -Dfile=aio-commons-1.8.5.jar -DgroupId=com.venosyd.opensource -DartifactId=aio-commons -Dversion=1.8.5 -Dpackaging=jar
 
 ## limpeza
-rm aio-commons-1.7.5.jar
+rm aio-commons-1.8.5.jar
