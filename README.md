@@ -60,9 +60,9 @@ Necessario coletar o **senderHash** (id especifico da
 operacao com o cliente) para fazer o checkout ou a  
 inscricao (subscribe).
 
-Para isso, colocoque o arquivo pagseguro.html em  
-algum servidor de arquivos estaticos e acesse usando  
-a URL 
+Para isso, colocoque o arquivo pagseguro.html e pagseguro.sandbox.html em  
+algum servidor de arquivos estaticos e acesse usando a URL  
+
 ```
 http(s)://{dominio.com}/pagseguro.html?sessionID={sessionID}
 ```
